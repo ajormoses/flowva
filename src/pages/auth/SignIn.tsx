@@ -5,8 +5,10 @@ import * as Yup from "yup";
 import InputField from "../../Ui/InputField";
 import Btn from "../../Ui/Btn";
 import { FcGoogle } from "react-icons/fc";
+import { userAuth } from "../../context/AuthContext";
 
 const SignIn = () => {
+  const { session } = userAuth();
   const [loading, setLoading] = useState(false);
 
   const schema = Yup.object({
