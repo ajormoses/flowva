@@ -1,0 +1,60 @@
+import React from "react";
+import type { ReactNode } from "react";
+import clsx from "clsx";
+import { TbLoader2 } from "react-icons/tb";
+
+interface BtnProps {
+  label: string;
+  customClass?: string;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  prependIcon?: ReactNode;
+  appendIcon?: ReactNode;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+  isLoading?: boolean;
+  customIcon?: string;
+}
+
+const Btn: React.FC<BtnProps> = ({
+  label,
+  customClass,
+  onClick,
+  prependIcon,
+  appendIcon,
+  type,
+  disabled,
+  isLoading,
+  customIcon,
+}) => {
+  return (
+    <>
+      <button
+        onClick={onClick}
+        className={clsx(
+          `!border flex items-center justify-center border-white py-3 px-7 bg-purple-600 hover:bg-primary text-white font-medium text-base rounded-lg ease-in-out duration-300 hover:scale-95 hover:opacity-90 w-full `,
+          (prependIcon || appendIcon) && "gap-4",
+          disabled &&
+            "shadow-activeSelection bg-purpleHover cursor-not-allowed border-none",
+          customClass
+        )}
+        type={type || "button"}
+        disabled={disabled}
+      >
+        {!isLoading ? (
+          <>
+            {/* Prepend Icon */}
+            {prependIcon && <span className={customIcon}>{prependIcon}</span>}
+            {/* label */}
+            {label}
+            {/* Append Icon */}
+            {appendIcon && <span className={customIcon}>{appendIcon}</span>}
+          </>
+        ) : (
+          <TbLoader2 className="animate-spin" />
+        )}
+      </button>
+    </>
+  );
+};
+
+export default Btn;
