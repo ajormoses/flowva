@@ -1,24 +1,23 @@
-// import { Navigate } from "react-router-dom";
-// import { useAuth } from "../contexts/authContext";
+import { Navigate } from "react-router-dom";
+import { userAuth } from "../context/AuthContext";
+import type { ReactNode } from "react";
 
-// interface PrivateRouteProps {
-//   children: JSX.Element;
-// }
+interface PrivateRouteProps {
+  children: ReactNode;
+}
 
-// const PrivateRoute = ({ children }: PrivateRouteProps) => {
-//   const auth = useAuth();
+const PrivateRoute = ({ children }: PrivateRouteProps) => {
+  const auth = userAuth();
 
-//   if (!auth) return null; // context not ready
-//   const { currentUser, loading } = auth;
+  if (!auth) return null;
 
-//   if (loading) return null; // or a spinner
+  const { session } = auth;
 
-//   if (!currentUser) {
-//     // Not authenticated → redirect to sign-in
-//     return <Navigate to="/auth/signin" replace />;
-//   }
+  if (!session) {
+    return <Navigate to="/auth/signin" replace />;
+  }
 
-//   return children; // Authenticated → render the page
-// };
+  return <>{children}</>;
+};
 
-// export default PrivateRoute;
+export default PrivateRoute;
