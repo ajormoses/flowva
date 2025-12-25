@@ -10,14 +10,21 @@ import { FcGoogle } from "react-icons/fc";
 import { userAuth } from "../../context/AuthContext";
 import FormAuth from "../../components/Resources/FormAuth";
 
-const SignIn = () => {
+const SignUp = () => {
   const navigate = useNavigate();
-  const { signInUser } = userAuth();
   const [loading, setLoading] = useState(false);
+  const { signUpNewUser } = userAuth();
 
   const schema = Yup.object({
     email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string().min(6, "Password must be at least 6 characters"),
+
+    createPassword: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("createPassword")], "Passwords must match")
+      .required("Please confirm your password"),
   });
 
   const {
@@ -31,9 +38,9 @@ const SignIn = () => {
   const handleFormData = async (values: any) => {
     try {
       setLoading(true);
-      await signInUser(values.email, values.password);
+      await signUpNewUser(values.email, values.createPassword);
       toast.success("Account created successfully! Please sign in.");
-      navigate("/");
+      navigate("/auth/signin");
     } catch (e: any) {
       toast.error(e.message || "Account creation failed. Please try again.");
     } finally {
@@ -43,10 +50,7 @@ const SignIn = () => {
 
   return (
     <>
-      <FormAuth
-        title="Log in to flowva"
-        desc="Log in to receive personalized recommendations"
-      >
+      <FormAuth title="Create an account" desc="Sign up to manage your tools">
         <form
           className="w-full flex flex-col gap-4"
           onSubmit={handleSubmit(handleFormData)}
@@ -62,21 +66,28 @@ const SignIn = () => {
             required
           />
 
-          <div className="flex flex-col gap-1.5 w-full">
-            <InputField
-              type="password"
-              label="Password"
-              placeholder="Enter your password"
-              register={register("password", {
-                required: true,
-              })}
-              required
-              error={errors?.password?.message}
-            />
-            <span className="text-sm ml-auto text-primary ">
-              Forget Password?
-            </span>
-          </div>
+          <InputField
+            type="password"
+            label="Password"
+            placeholder="Enter your password"
+            register={register("createPassword", {
+              required: true,
+            })}
+            required
+            error={errors?.createPassword?.message}
+          />
+
+          <InputField
+            type="password"
+            label="Confirm Password"
+            placeholder="Enter your password"
+            register={register("confirmPassword", {
+              required: true,
+            })}
+            required
+            error={errors?.confirmPassword?.message}
+          />
+
           <Btn
             customClass="!rounded-3xl"
             isLoading={loading}
@@ -102,9 +113,9 @@ const SignIn = () => {
             Don't have an account?{" "}
             <span
               className="text-primary cursor-pointer"
-              onClick={() => navigate("/auth/signup")}
+              onClick={() => navigate("/auth/signin")}
             >
-              Sign up
+              Log in
             </span>
           </span>
         </form>
@@ -113,4 +124,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
