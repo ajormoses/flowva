@@ -1,21 +1,33 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import logo from "../../../public/img/flowva_portal_logo.png";
+import { userAuth } from "../../context/AuthContext";
 
 interface DashboardLayoutProps {
   children: ReactNode;
+  title: string;
+  desc: string;
 }
 
-const DashboardLayout = ({ children }: DashboardLayoutProps) => {
+const DashboardLayout: React.FC<DashboardLayoutProps> = ({
+  children,
+  title,
+  desc,
+}) => {
+  const { session } = userAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const navItems = [
-    { label: "Dashboard", path: "/", icon: "mdi:view-dashboard-outline" },
-    { label: "Profile", path: "/profile", icon: "mdi:account-outline" },
-    { label: "Settings", path: "/settings", icon: "mdi:cog-outline" },
-    { label: "Reports", path: "/reports", icon: "mdi:file-chart-outline" },
+    {
+      label: "Reward Hub",
+      path: "/",
+      icon: "material-symbols-light:diamond-outline",
+    },
   ];
+
+  console.log("SESSION DATA:", session);
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -25,8 +37,13 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:flex md:flex-col`}
       >
-        <div className="h-16 flex items-center justify-center border-b border-gray-200 font-bold text-lg">
-          My Portal
+        <div className="h-[100px] overflow-hidden flex items-center justify-center">
+          <img className="h-[100px] " src={logo} />
+          <Icon
+            onClick={() => setSidebarOpen(false)}
+            icon="mdi:close"
+            className="w-6 h-6 absolute top-4 right-4 md:hidden cursor-pointer"
+          />
         </div>
         <nav className="flex-1 px-4 py-6 space-y-2">
           {navItems.map((item) => (
@@ -34,35 +51,64 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               key={item.path}
               to={item.path}
               className={({ isActive }) =>
-                `flex items-center px-3 py-2 rounded-md text-gray-700 hover:bg-gray-200 ${
-                  isActive ? "bg-gray-200 font-semibold" : ""
+                `flex items-center px-3 py-2 rounded-md text-gray-700 hover:bg-purple-100 ${
+                  isActive ? "bg-purple-300 font-semibold !text-primary" : ""
                 }`
               }
             >
-              <Icon icon={item.icon} className="w-5 h-5 mr-2" />
-              {item.label}
+              {({ isActive }) => (
+                <>
+                  <Icon
+                    icon={item.icon}
+                    className={`w-5 h-5 mr-2 ${
+                      isActive ? "text-purple-600" : "text-gray-500"
+                    }`}
+                  />
+                  <span>{item.label}</span>
+                </>
+              )}
             </NavLink>
           ))}
         </nav>
+
+        {/* User Details */}
+        <div className="px-4">
+          <div className="border-t border-t-black flex pt-2 pb-4 gap-2 items-center">
+            <img
+              className="rounded-full h-10 w-10"
+              src={session?.user?.user_metadata?.avatar_url}
+            />
+            <div className="flex flex-col gap-0.5">
+              <p className="font-bold text-sm">
+                {session?.user?.user_metadata?.full_name}
+              </p>
+              <p className="text-xs">{session?.user?.email}</p>
+            </div>
+          </div>
+        </div>
       </aside>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col md:ml-64">
+      <div className="flex-1 flex flex-col">
         {/* Top Navbar */}
-        <header className="h-16 flex items-center justify-between px-4 bg-white border-b border-gray-200 shadow-sm">
-          <button
-            className="md:hidden p-2 rounded-md hover:bg-gray-200"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-          >
-            <Icon icon="mdi:menu" className="w-6 h-6" />
-          </button>
-          <div className="flex items-center space-x-4">
-            <span className="font-medium">Welcome, User</span>
-            <button className="p-2 rounded-md hover:bg-gray-200">
-              <Icon icon="mdi:logout" className="w-5 h-5" />
+        <div className="px-4">
+          <header className="h-16 flex items-center justify-between ">
+            <button
+              type="button"
+              className="p-2 flex gap-4 items-center"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+            >
+              <Icon icon="mdi:menu" className="w-6 h-6 md:hidden" />
+              <span className="font-medium text-2xl">{title}</span>
             </button>
-          </div>
-        </header>
+            <div className="flex items-center space-x-4">
+              <button className="p-2 rounded-md hover:bg-gray-200">
+                <Icon icon="mdi:logout" className="w-5 h-5" />
+              </button>
+            </div>
+          </header>
+          <p className="px-2">{desc}</p>
+        </div>
 
         {/* Page Content */}
         <main className="flex-1 overflow-auto p-6">{children}</main>

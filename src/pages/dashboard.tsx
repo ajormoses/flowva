@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Btn from "../Ui/Btn";
 import { userAuth } from "../context/AuthContext";
+import DashboardLayout from "../components/Layout/DashboardLayout";
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(false);
@@ -18,12 +19,17 @@ const Dashboard = () => {
   }
   return (
     <>
-      <Btn
-        isLoading={loading}
-        onClick={handleSignOut}
-        type="button"
-        label="Sign Out"
-      />
+      <DashboardLayout
+        title="Rewards Hub"
+        desc="Earn points, unlock rewards, and celebrate your progress!"
+      >
+        <Btn
+          isLoading={loading}
+          onClick={handleSignOut}
+          type="button"
+          label="Sign Out"
+        />
+      </DashboardLayout>
     </>
   );
 };
