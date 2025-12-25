@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState, useContext } from "react";
-import { supbase } from "./SupbaseClient";
+import { supabase } from "./SupbaseClient";
 
 const AuthContext = createContext<any>(null);
 export const AuthContextProvider = ({
@@ -8,10 +8,11 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [session, setSession] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   //   Sign Up
   const signUpNewUser = async (email: string, password: string) => {
-    const { data, error } = await supbase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email: email,
       password: password,
     });
@@ -25,7 +26,7 @@ export const AuthContextProvider = ({
   //   Sign in
   const signInUser = async (email: string, password: string) => {
     try {
-      await supbase.auth.signInWithPassword({
+      await supabase.auth.signInWithPassword({
         email: email,
         password: password,
       });
@@ -35,26 +36,59 @@ export const AuthContextProvider = ({
   };
 
   useEffect(() => {
-    supbase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      setLoading(false);
+
+      // ✅ FORCE-REMOVE OAUTH HASH
+      if (window.location.hash) {
+        console.log("hello");
+        const url = new URL(window.location.href);
+        url.hash = "";
+        window.history.replaceState({}, "", url.toString());
+      }
     });
 
-    supbase.auth.onAuthStateChange(async (event, session) => {
-      setSession(session);
-    });
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setSession(session);
+        setLoading(false); // ✅ DONE LOADING
+      }
+    );
+
+    return () => {
+      listener.subscription.unsubscribe();
+    };
   }, []);
 
   //   Sign Out
   const signOutUser = async () => {
-    const { error } = await supbase.auth.signOut();
+    const { error } = await supabase.auth.signOut();
     if (error) {
       console.error("Error signing out:", error);
     }
   };
 
+  //  Sign Up with Google
+  const signUpGoogle = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: window.location.origin,
+      },
+    });
+  };
+
   return (
     <AuthContext.Provider
-      value={{ session, signUpNewUser, signInUser, signOutUser }}
+      value={{
+        session,
+        loading,
+        signUpNewUser,
+        signInUser,
+        signOutUser,
+        signUpGoogle,
+      }}
     >
       {children}
     </AuthContext.Provider>

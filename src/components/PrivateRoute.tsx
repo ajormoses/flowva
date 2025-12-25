@@ -11,7 +11,9 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
 
   if (!auth) return null;
 
-  const { session } = auth;
+  const { session, loading } = auth;
+
+  if (loading) return null;
 
   if (!session) {
     return <Navigate to="/auth/signin" replace />;

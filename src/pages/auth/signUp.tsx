@@ -13,7 +13,7 @@ import FormAuth from "../../components/Resources/FormAuth";
 const SignUp = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { signUpNewUser } = userAuth();
+  const { signUpNewUser, signUpGoogle } = userAuth();
 
   const schema = Yup.object({
     email: Yup.string().email("Invalid email").required("Email is required"),
@@ -45,6 +45,14 @@ const SignUp = () => {
       toast.error(e.message || "Account creation failed. Please try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signUpGoogle();
+    } catch (e: any) {
+      toast.error(e.message || "Google sign-in failed. Please try again.");
     }
   };
 
@@ -102,7 +110,7 @@ const SignUp = () => {
           </div>
 
           <Btn
-            onClick={() => {}}
+            onClick={handleGoogleSignIn}
             prependIcon={<FcGoogle />}
             customClass="!bg-white !text-black hover:!bg-purple-100"
             type="button"
