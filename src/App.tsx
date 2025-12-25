@@ -1,6 +1,6 @@
 // import { PrimeReactProvider } from "primereact/api";
 import { AuthContextProvider } from "./context/AuthContext";
-// import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/PrivateRoute";
 import {
   BrowserRouter,
   Routes,
@@ -9,13 +9,15 @@ import {
   Navigate,
 } from "react-router-dom";
 import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 import "./assets/tailwind.css";
 import "@mdi/font/css/materialdesignicons.css";
-import AuthSignIn from "./pages/auth/SignIn";
+import AuthSignIn from "./pages/auth/signIn";
+import AuthSignUp from "./pages/auth/signUp";
+import Dashboard from "./pages/dashboard";
+
 // import AuthCreateAccount from "./pages/auth/CreateAccount";
-// import Dashboard from "./pages/dashboard";
 // import Preview from "./pages/preview";
-// import { Toaster } from "react-hot-toast";
 
 function App() {
   const ScrollToTop = () => {
@@ -32,21 +34,21 @@ function App() {
     <AuthContextProvider>
       <BrowserRouter>
         <ScrollToTop />
-        {/* <Toaster position="top-right" reverseOrder={false} /> */}
+        <Toaster position="top-right" reverseOrder={false} />
         <Routes>
           <Route path="/auth/signin" element={<AuthSignIn />} />
-          {/* <Route path="/auth/create-account" element={<AuthCreateAccount />} />
-        <Route path="/public-preview/:id" element={<Preview />} /> */}
+          <Route path="/auth/signup" element={<AuthSignUp />} />
+          {/* <Route path="/public-preview/:id" element={<Preview />} /> */}
 
           {/* Protected route */}
-          {/* <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        /> */}
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
 
           {/* <Route
           path="/preview/:id"
