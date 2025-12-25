@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import logo from "../../../public/img/flowva_portal_logo.png";
-import { userAuth } from "../../context/AuthContext";
+import UserInfo from "../Resources/UserInfo";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -16,7 +16,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   title,
   desc,
 }) => {
-  const { session } = userAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const navItems = [
@@ -26,8 +25,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       icon: "material-symbols-light:diamond-outline",
     },
   ];
-
-  console.log("SESSION DATA:", session);
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -72,20 +69,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         </nav>
 
         {/* User Details */}
-        <div className="px-4">
-          <div className="border-t border-t-black flex pt-2 pb-4 gap-2 items-center">
-            <img
-              className="rounded-full h-10 w-10"
-              src={session?.user?.user_metadata?.avatar_url}
-            />
-            <div className="flex flex-col gap-0.5">
-              <p className="font-bold text-sm">
-                {session?.user?.user_metadata?.full_name}
-              </p>
-              <p className="text-xs">{session?.user?.email}</p>
-            </div>
-          </div>
-        </div>
+        <UserInfo />
       </aside>
 
       {/* Main content */}
