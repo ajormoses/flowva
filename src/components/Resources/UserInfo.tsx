@@ -52,7 +52,7 @@ const UserInfo = ({ items }: UserInfoProps) => {
       >
         <img
           className="rounded-full h-10 w-10"
-          src={session?.user?.user_metadata?.avatar_url}
+          src={session?.user?.user_metadata?.avatar_url || "/img/noAvatar.svg"}
           alt="User avatar"
         />
         <div className="flex flex-col gap-0.5">
