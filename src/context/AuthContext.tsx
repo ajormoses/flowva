@@ -7,8 +7,8 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const redirectUrl =
-    import.meta.env.VITE_REDIRECT_URL || window.location.origin;
+  const redirectUrl = import.meta.env.VITE_REDIRECT_URL;
+
   const [session, setSession] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
