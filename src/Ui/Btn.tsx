@@ -32,7 +32,7 @@ const Btn: React.FC<BtnProps> = ({
         onClick={onClick}
         className={clsx(
           `!border flex items-center justify-center border-white py-3 px-7 bg-purple-600 hover:bg-primary text-white font-medium text-base rounded-lg ease-in-out duration-300 hover:scale-95 hover:opacity-90 w-full `,
-          (prependIcon || appendIcon) && "gap-4",
+          (prependIcon || appendIcon) && "gap-2.5",
           disabled &&
             "shadow-activeSelection bg-purpleHover cursor-not-allowed border-none",
           customClass

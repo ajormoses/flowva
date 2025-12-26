@@ -38,7 +38,7 @@ const TabSwitcher = ({ tabs, defaultIndex = 0 }: TabSwitcherProps) => {
       </div>
 
       {/* Tab Content */}
-      <div className="pt-4">{tabs[activeTab].content}</div>
+      <div className="pt-8">{tabs[activeTab].content}</div>
     </div>
   );
 };
