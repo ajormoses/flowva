@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import logo from "../../../public/img/flowva_portal_logo.png";
 import UserInfo from "../Resources/UserInfo";
+import NotificationBell from "../Resources/NotificationBell";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -73,7 +74,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       </aside>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col pr-3 pt-4">
         {/* Top Navbar */}
         <div className="px-4">
           <header className="h-16 flex items-center justify-between ">
@@ -85,11 +86,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               <Icon icon="mdi:menu" className="w-6 h-6 md:hidden" />
               <span className="font-medium text-2xl">{title}</span>
             </button>
-            <div className="flex items-center space-x-4">
-              <button className="p-2 rounded-md hover:bg-gray-200">
-                <Icon icon="mdi:logout" className="w-5 h-5" />
-              </button>
-            </div>
+            <NotificationBell />
           </header>
           <p className="px-2">{desc}</p>
         </div>

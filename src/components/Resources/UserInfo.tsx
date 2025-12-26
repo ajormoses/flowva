@@ -33,7 +33,7 @@ const UserInfo = ({ items }: UserInfoProps) => {
   const menuItems = items || defaultItems;
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="absolute bottom-0 w-full" ref={dropdownRef}>
       {/* User Info */}
       <div
         className="border-t border-black flex items-center gap-2 px-4 py-2 cursor-pointer"
