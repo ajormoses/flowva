@@ -1,75 +1,168 @@
-# React + TypeScript + Vite
+🚀 FlowvaHub Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern Portal Dashboard built with React + TypeScript, featuring authentication with Supabase, protected routes, reusable UI components, and a clean, responsive layout using Tailwind CSS.
 
-Currently, two official plugins are available:
+⸻
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✨ Features
+• 🔐 Authentication (Supabase)
+• Email & password login
+• Google OAuth login
+• Persistent sessions
+• Secure sign-out
+• 🛡 Protected Routes
+• Custom PrivateRoute implementation
+• Prevents unauthenticated access
+• Handles refresh and session restore correctly
+• 📊 Dashboard UI
+• Sidebar navigation
+• Notification dropdown
+• User profile dropdown
+• Tab-based views (Rewards, Locked, Unlocked, Coming Soon)
+• 🧩 Reusable Components
+• TabSwitcher
+• RewardCard
+• HubSummary
+• Notification Bell
+• User Dropdown
+• 🎨 Modern Styling
+• Tailwind CSS
+• Responsive grid layouts
+• Conditional states (active, locked, coming soon)
 
-## React Compiler
+⸻
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+🧰 Tech Stack
+• Frontend Framework: React
+• Language: TypeScript
+• Routing: React Router DOM
+• Authentication & Backend: Supabase
+• Styling: Tailwind CSS
+• Icons: Iconify (@iconify/react, Material Icons)
+• Utilities:
+• clsx (conditional class handling)
+• Notifications: react-hot-toast
+• Build Tool: Vite
 
-Note: This will impact Vite dev & build performances.
+⸻
 
-## Expanding the ESLint configuration
+📦 Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1️⃣ Clone the repository
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+git clone <your-repo-url>
+cd flowva
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2️⃣ Install dependencies
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+npm install
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# or
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+yarn install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+⸻
+
+🔐 Environment Variables
+
+Create a .env file in the root of the project:
+
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+⚠️ Make sure .env is included in .gitignore
+
+⸻
+
+▶️ Run the Project
+
+npm run dev
+
+# or
+
+yarn dev
+
+The app will run at:
+
+http://localhost:5173
+
+⸻
+
+🧠 Authentication Flow
+• Supabase manages session persistence
+• AuthContext exposes:
+• session
+• loading
+• signInUser
+• signUpNewUser
+• signUpGoogle
+• signOutUser
+• PrivateRoute:
+• Blocks access when unauthenticated
+• Waits for auth state to resolve before rendering
+
+⸻
+
+🗂 Project Structure
+
+src/
+├── components/
+│ ├── PrivateRoute.tsx
+│ ├── TabSwitcher.tsx
+│ ├── RewardCard.tsx
+│ ├── NotificationBell.tsx
+│ └── UserDropdown.tsx
+│
+├── context/
+│ └── AuthContext.tsx
+│
+├── pages/
+│ ├── auth/
+│ │ ├── signIn.tsx
+│ │ └── signUp.tsx
+│ └── dashboard/
+│ └── index.tsx
+│
+├── assets/
+│ └── tailwind.css
+│
+├── SupbaseClient.ts
+├── App.tsx
+└── main.tsx
+
+⸻
+
+🧪 Key UI Patterns
+• Tab Switcher with Counts
+• Responsive Grid Cards
+• Dropdown Menus (click outside support)
+• Hover & Active States
+• Conditional Rendering (empty states)
+
+⸻
+
+🚧 Future Improvements
+• Pagination for rewards
+• Role-based access control
+• Dark mode support
+• API-driven rewards data
+• Unit & integration tests
+
+⸻
+
+👤 Author
+
+Moses Ajor
+Frontend Engineer
+• Twitter: https://x.com/ajor_moses
+• LinkedIn: https://www.linkedin.com/in/moses-ajor-0b99291a7/
+
+⸻
+
+📄 License
+
+This project is open-source and available under the MIT License.
+
+⸻
+
+Built with ❤️ using React, TypeScript, and Supabase
