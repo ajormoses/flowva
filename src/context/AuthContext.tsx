@@ -7,6 +7,8 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const redirectUrl =
+    import.meta.env.VITE_REDIRECT_URL || window.location.origin;
   const [session, setSession] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -73,9 +75,7 @@ export const AuthContextProvider = ({
   const signUpGoogle = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: {
-        redirectTo: window.location.origin,
-      },
+      options: { redirectTo: redirectUrl },
     });
   };
 
