@@ -1,4 +1,3 @@
-// import { PrimeReactProvider } from "primereact/api";
 import { AuthContextProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import {
@@ -15,9 +14,6 @@ import "@mdi/font/css/materialdesignicons.css";
 import AuthSignIn from "./pages/auth/signIn";
 import AuthSignUp from "./pages/auth/signUp";
 import Dashboard from "./pages/dashboard";
-
-// import AuthCreateAccount from "./pages/auth/CreateAccount";
-// import Preview from "./pages/preview";
 
 function App() {
   const ScrollToTop = () => {
@@ -38,7 +34,6 @@ function App() {
         <Routes>
           <Route path="/auth/signin" element={<AuthSignIn />} />
           <Route path="/auth/signup" element={<AuthSignUp />} />
-          {/* <Route path="/public-preview/:id" element={<Preview />} /> */}
 
           {/* Protected route */}
           <Route
@@ -49,15 +44,6 @@ function App() {
               </PrivateRoute>
             }
           />
-
-          {/* <Route
-          path="/preview/:id"
-          element={
-            <PrivateRoute>
-              <Preview />
-            </PrivateRoute>
-          }
-        /> */}
 
           {/* Catch-all route */}
           <Route path="*" element={<Navigate to="/auth/signin" replace />} />
