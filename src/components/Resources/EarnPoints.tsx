@@ -5,7 +5,6 @@ import ToolSpotLight from "./ToolSpotLight";
 import ReferralLink from "./ReferralLink";
 import SocialMediaLinks from "./SocialMediaLinks";
 import { Icon } from "@iconify/react";
-import clsx from "clsx";
 
 const EarnPoints = () => {
   // JS: 0 = Sunday, 1 = Monday, ..., 6 = Saturday
