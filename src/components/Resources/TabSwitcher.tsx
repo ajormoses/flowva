@@ -21,9 +21,9 @@ const TabSwitcher = ({
   const [activeTab, setActiveTab] = useState(defaultIndex);
 
   return (
-    <div className="w-full">
+    <div>
       {/* Tabs Header */}
-      <div className={clsx(customHeader, "flex")}>
+      <div className={clsx("flex flex-wrap", customHeader)}>
         {tabs.map((tab, index) => {
           const isActive = index === activeTab;
 

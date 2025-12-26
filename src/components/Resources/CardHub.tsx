@@ -25,7 +25,7 @@ const CardHub: React.FC<Props> = ({
     <div
       className={clsx(
         customClass,
-        "rounded-md bg-white border border-gray-200 shadow-sm transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-lg"
+        "rounded-md bg-white border border-gray-200 shadow-sm transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-lg overflow-hidden"
       )}
     >
       {/* Card header content goes here */}

@@ -74,7 +74,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       </aside>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col pr-3 pt-4">
+      <div className="flex-1 flex flex-col pt-4">
         {/* Top Navbar */}
         <div className="px-4">
           <header className="h-16 flex items-center justify-between ">

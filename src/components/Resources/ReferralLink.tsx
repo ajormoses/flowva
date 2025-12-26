@@ -20,7 +20,7 @@ const ReferralLink = ({ link }: ReferralLinkProps) => {
       <p className="text-sm font-semibold">Your personal referral link:</p>
 
       <div className="flex items-center justify-between gap-3 bg-white border border-gray-300 rounded-lg px-4 py-3">
-        <span className="text-sm text-gray-700 truncate">{link}</span>
+        <span className="text-sm text-gray-700">{link}</span>
 
         <button
           onClick={handleCopy}

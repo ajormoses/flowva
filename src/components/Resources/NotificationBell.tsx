@@ -50,7 +50,7 @@ const NotificationBell = ({
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute top-full mt-2 right-0 w-[360px] rounded-xl shadow-lg z-50 bg-purple-600">
+        <div className="absolute top-full mt-2 right-0 w-[300px] md:w-[360px] rounded-xl shadow-lg z-50 bg-purple-600">
           <div className="p-4 flex justify-between items-center gap-4 bg-gradient-to-r from-purple-600 to-purple-300 rounded-t-xl text-white">
             <span className="font-bold"> Notifications</span>
             <div className="flex items-center gap-2">

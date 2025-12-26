@@ -5,6 +5,7 @@ import ToolSpotLight from "./ToolSpotLight";
 import ReferralLink from "./ReferralLink";
 import SocialMediaLinks from "./SocialMediaLinks";
 import { Icon } from "@iconify/react";
+import clsx from "clsx";
 
 const EarnPoints = () => {
   // JS: 0 = Sunday, 1 = Monday, ..., 6 = Saturday
@@ -73,7 +74,7 @@ const EarnPoints = () => {
                 {days.map((day, index) => (
                   <div
                     key={index}
-                    className={`min-w-[40px] h-10 flex items-center justify-center rounded-full text-xs font-medium flex-shrink-0
+                    className={`w-[40px] h-10 flex items-center justify-center rounded-full text-xs font-medium flex-shrink-0
                     ${
                       index === activeIndex
                         ? "border-2 border-primary text-primary bg-white"
@@ -84,13 +85,14 @@ const EarnPoints = () => {
                   </div>
                 ))}
               </div>
+
               <p className="text-sm text-center mt-8">
                 Check in daily to to earn +5 points
               </p>
               <Btn
                 prependIcon={<Icon icon="bi:lightning-charge" />}
                 label="Claim Today's Points"
-                customClass="!rounded-2xl mt-2 w-full"
+                customClass="!rounded-2xl mt-2"
               />
             </CardHub>
 
@@ -149,7 +151,7 @@ const EarnPoints = () => {
               </div>
             </div>
 
-            <ReferralLink link="https://yourapp.com/referral/yourcode123" />
+            <ReferralLink link="https://yourapp.com" />
             <SocialMediaLinks />
           </CardHub>
         </HubSummary>

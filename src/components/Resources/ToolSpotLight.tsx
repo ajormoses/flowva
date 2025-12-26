@@ -15,7 +15,7 @@ const ToolSpotLight = () => {
             </p>
             <span className="text-white font-medium text-xl">Reclaim</span>
           </div>
-          <div className="bg-blue-500 h-[60px] w-[60px] flex justify-center items-center rounded-full">
+          <div className="bg-blue-500 h-[60px] w-[60px] flex flex-wrap justify-center items-center rounded-full">
             <div className="grid grid-cols-2">
               <Icon icon="ic:baseline-square" className="text-red-300" />
               <Icon icon="material-symbols:circle" className="text-black" />
