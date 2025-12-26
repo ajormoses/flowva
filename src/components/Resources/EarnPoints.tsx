@@ -4,9 +4,9 @@ const EarnPoints = () => {
   return (
     <>
       <div className="flex flex-col gap-5">
-        <HubSummary title="Your Rewards Journey">DJDJDJ</HubSummary>
+        <HubSummary title="Your Rewards Journey">k</HubSummary>
 
-        <HubSummary title="Earn More Points">DJDJDJ</HubSummary>
+        <HubSummary title="Earn More Points">s</HubSummary>
       </div>
     </>
   );
