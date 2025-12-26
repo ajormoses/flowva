@@ -1,22 +1,29 @@
+import clsx from "clsx";
 import { useState } from "react";
 
 interface Tab {
   label: string;
   content: React.ReactNode;
+  count?: number;
 }
 
 interface TabSwitcherProps {
   tabs: Tab[];
   defaultIndex?: number;
+  customHeader?: string;
 }
 
-const TabSwitcher = ({ tabs, defaultIndex = 0 }: TabSwitcherProps) => {
+const TabSwitcher = ({
+  tabs,
+  defaultIndex = 0,
+  customHeader,
+}: TabSwitcherProps) => {
   const [activeTab, setActiveTab] = useState(defaultIndex);
 
   return (
     <div className="w-full">
       {/* Tabs Header */}
-      <div className="flex ">
+      <div className={clsx(customHeader, "flex")}>
         {tabs.map((tab, index) => {
           const isActive = index === activeTab;
 
@@ -24,7 +31,7 @@ const TabSwitcher = ({ tabs, defaultIndex = 0 }: TabSwitcherProps) => {
             <button
               key={tab.label}
               onClick={() => setActiveTab(index)}
-              className={`px-4 py-2 text-sm font-medium transition-colors
+              className={`px-4 py-2 text-sm font-medium transition-colors flex items-center
                 ${
                   isActive
                     ? "border-b-2 border-purple-600 text-purple-600 bg-purple-100"
@@ -32,6 +39,18 @@ const TabSwitcher = ({ tabs, defaultIndex = 0 }: TabSwitcherProps) => {
                 }`}
             >
               {tab.label}
+              {typeof tab.count === "number" && (
+                <span
+                  className={clsx(
+                    "ml-2 px-2 py-0.5 text-[10px] rounded-full h-5 w-5 flex items-center justify-center",
+                    isActive
+                      ? "bg-purple-600 text-white"
+                      : "bg-gray-200 text-gray-600"
+                  )}
+                >
+                  {tab.count}
+                </span>
+              )}
             </button>
           );
         })}
