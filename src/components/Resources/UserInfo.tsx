@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { userAuth } from "../../context/AuthContext";
+import toast from "react-hot-toast";
 
 interface UserInfoProps {
   items?: { label: string; action: () => void }[];
@@ -27,7 +28,17 @@ const UserInfo = ({ items }: UserInfoProps) => {
   const defaultItems = [
     { label: "Feedback", action: () => console.log("Go to profile") },
     { label: "Support", action: () => console.log("Go to settings") },
-    { label: "Log Out", action: async () => await signOutUser() },
+    {
+      label: "Log Out",
+      action: async () => {
+        try {
+          await signOutUser();
+          toast.success("Successfully logged out");
+        } catch (e: any) {
+          toast.error(e.message || "Oops, Please try again.");
+        }
+      },
+    },
   ];
 
   const menuItems = items || defaultItems;
