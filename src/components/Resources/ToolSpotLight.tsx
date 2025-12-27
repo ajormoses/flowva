@@ -3,7 +3,7 @@ import Btn from "../../Ui/Btn";
 const ToolSpotLight = () => {
   return (
     <>
-      <div className="rounded-xl overflow-hidden">
+      <div className="rounded-xl overflow-hidden  transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-lg">
         {/* Header */}
         <div className="p-4 rounded-t-xl bg-gradient-to-r from-purple-600 to-blue-300 flex justify-between items-center">
           <div className="flex flex-col gap-4">
